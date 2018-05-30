@@ -3,7 +3,7 @@
 /**
  * Resamples the input by any real factor using an algorithm based on the
  * convolution operation with the sinc function. **DOES NOT FILTER THE INPUT,
- * ALIASING MAY OCOUR**.
+ * ALIASING MAY OCCUR**.
  *
  * @param  input            An array where each element is a sample of the
  * signal. If the signal has multiple channels all the samples of a channel
@@ -13,7 +13,7 @@
  * @param  inputLength      The amount of samples in each channel.
  * @param  channels         The number of channels represented in the input.
  * @param  resamplingFactor The resampling to be applied. Can be any real number.
- * @param  sampleRadius     The number of samĺes before and after each point in
+ * @param  sampleRadius     The number of samples before and after each point in
  * the original signal considered relevant to the calculation of the new signal
  * around the corresponding point.
  * @return                  An array with the resampled signal. Respects the
