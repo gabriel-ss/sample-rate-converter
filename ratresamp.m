@@ -30,7 +30,7 @@ elseif (...
 end
 
 
-inputLength = length(signal)(1);
+inputLength = length(signal);
 outputLength = inputLength*stretchFactor/squeezeFactor;
 
 
