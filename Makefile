@@ -1,6 +1,6 @@
 CXX=g++
-CXXFLAGS=-Wall -O2
-LDFLAGS=-Wall -O2
+CXXFLAGS=-Wall -std=c++11 -pedantic -D_FORTIFY_SOURCE=2 -O2 -fPIC -pthread
+LDFLAGS=-Wall -std=c++11 -O2 -pthread
 MEX=mkoctfile --mex
 
 all: resample.mex
@@ -9,7 +9,7 @@ all: resample.mex
 	$(CXX) $(CXXFLAGS) -c $<
 
 resample.mex: libresamp.o libsigproc.o
-	$(MEX) -o $@ resample.cpp $?
+	$(MEX) $(CXXFLAGS) -o $@ resample.cpp $^
 
 clean:
 	rm ./*.o
