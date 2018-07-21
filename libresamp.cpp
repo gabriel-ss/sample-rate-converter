@@ -3,9 +3,10 @@
 #include "libresamp.h"
 
 
-double* resample(double* signal, unsigned signalLength, unsigned channels, double resamplingFactor, unsigned sampleRadius) {
+double* resample(double* signal, unsigned* length, unsigned channels, double resamplingFactor, unsigned sampleRadius) {
 
-	unsigned outputLength = (unsigned)(resamplingFactor*signalLength);
+	unsigned inputLength = *length;
+	unsigned outputLength = (unsigned)(resamplingFactor*inputLength);
 
 	double* output = new double[channels*outputLength];
 
@@ -28,7 +29,7 @@ double* resample(double* signal, unsigned signalLength, unsigned channels, doubl
 					spot = (unsigned)(m/resamplingFactor);
 					// ...and evaluates the relevant range of original samples...
 					start = (spot <= sampleRadius) ? 0 : spot - sampleRadius;
-					stop = (signalLength - spot > sampleRadius) ? spot+sampleRadius : signalLength;
+					stop = (inputLength - spot > sampleRadius) ? spot+sampleRadius : inputLength;
 
 					// ...then convolutes the original signal in the range.
 					output[m] = 0;
@@ -39,13 +40,14 @@ double* resample(double* signal, unsigned signalLength, unsigned channels, doubl
 			},
 			//Passes to the lambda function pointers positioned at the begining of
 			//each channel in the signal arrays.
-			(signal + (channel*signalLength)), (output + (channel*outputLength))
+			(signal + (channel*inputLength)), (output + (channel*outputLength))
 		);
 
 	for (channel = 0; channel < channels; channel++)
 		threads[channel].join();
 
 	delete[] threads;
+	*length = outputLength;
 
 	return output;
 }

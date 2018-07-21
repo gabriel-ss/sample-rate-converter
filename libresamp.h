@@ -10,7 +10,9 @@
  * must be in sequence. The array of a signal of length n samples then have
  * n * channels elements where the first n elements are the samples of channel
  * 1, the elements from n + 1 to n * 2 of channel 2 and so go on.
- * @param  inputLength      The amount of samples in each channel.
+ * @param  length           A pointer to the amount of samples in each channel.
+ * After the end of the resampling the value will be updated to reflect the
+ * output length.
  * @param  channels         The number of channels represented in the input.
  * @param  resamplingFactor The resampling to be applied. Can be any real number.
  * @param  sampleRadius     The number of samples before and after each point in
@@ -19,4 +21,4 @@
  * @return                  An array with the resampled signal. Respects the
  * same channel order of the input.
  */
-double* resample(double* input, unsigned inputLength, unsigned channels, double resamplingFactor, unsigned sampleRadius);
+double* resample(double* input, unsigned* length, unsigned channels, double resamplingFactor, unsigned sampleRadius);

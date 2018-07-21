@@ -16,10 +16,10 @@ void mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 	unsigned sampleRadius = (unsigned)mxGetScalar(prhs[2]);
 
 
-	double* resampledSignal = resample(signal, length, channels, resamplingFactor, sampleRadius);
+	double* resampledSignal = resample(signal, &length, channels, resamplingFactor, sampleRadius);
 
 
-	mwSize outputSize[] = {(mwSize)(resamplingFactor*length), channels};
+	mwSize outputSize[] = {(mwSize)(length), channels};
 	plhs[0] = mxCreateNumericArray(2, outputSize, mxDOUBLE_CLASS, mxREAL);
 	mxSetData(plhs[0], resampledSignal);
 
